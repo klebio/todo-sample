@@ -9,6 +9,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import Members from "./pages/Members";
 import RoutesPage from "./pages/Routes";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/members" element={<PrivateRoute><Members /></PrivateRoute>} />
           <Route path="/routes" element={<PrivateRoute><RoutesPage /></PrivateRoute>} />
+          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
