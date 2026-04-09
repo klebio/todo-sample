@@ -7,6 +7,8 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
+import Members from "./pages/Members";
+import RoutesPage from "./pages/Routes";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,11 +29,9 @@ const App = () => (
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           
-          <Route path="/" element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          } />
+          <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/members" element={<PrivateRoute><Members /></PrivateRoute>} />
+          <Route path="/routes" element={<PrivateRoute><RoutesPage /></PrivateRoute>} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
