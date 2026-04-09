@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import Sidebar from '@/components/layout/Sidebar';
 import CreateRouteModal from '@/components/routes/CreateRouteModal';
-import { MapPin, Calendar, Users, CheckCircle2 } from 'lucide-react';
+import { MapPin, Calendar, Users, CheckCircle2, ChevronRight } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Button } from '@/components/ui/button';
@@ -84,7 +85,7 @@ const Routes = () => {
             const participantCount = route.participants?.length || 0;
 
             return (
-              <div key={route.id} className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl hover:border-[#4B5320]/50 transition-all group">
+              <div key={route.id} className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl hover:border-[#4B5320]/50 transition-all group relative">
                 <div className="flex justify-between items-start mb-6">
                   <div className="space-y-1">
                     <span className="px-2 py-1 bg-[#4B5320]/20 text-[#4B5320] text-[10px] font-black uppercase rounded tracking-widest">
@@ -120,20 +121,25 @@ const Routes = () => {
                   </div>
                 </div>
 
-                <Button 
-                  onClick={() => toggleParticipation(route.id, isParticipating)}
-                  className={`w-full py-6 rounded-2xl font-black uppercase tracking-widest transition-all ${
-                    isParticipating 
-                    ? "bg-zinc-800 text-zinc-400 hover:bg-red-500/10 hover:text-red-500" 
-                    : "bg-[#4B5320] text-white hover:bg-[#3a4119] shadow-lg shadow-[#4B5320]/20"
-                  }`}
-                >
-                  {isParticipating ? (
-                    <><CheckCircle2 className="mr-2" size={18} /> Confirmado</>
-                  ) : (
-                    "Confirmar Presença"
-                  )}
-                </Button>
+                <div className="flex gap-3">
+                  <Button 
+                    onClick={() => toggleParticipation(route.id, isParticipating)}
+                    className={`flex-1 py-6 rounded-2xl font-black uppercase tracking-widest transition-all ${
+                      isParticipating 
+                      ? "bg-zinc-800 text-zinc-400 hover:bg-red-500/10 hover:text-red-500" 
+                      : "bg-[#4B5320] text-white hover:bg-[#3a4119] shadow-lg shadow-[#4B5320]/20"
+                    }`}
+                  >
+                    {isParticipating ? (
+                      <><CheckCircle2 className="mr-2" size={18} /> Confirmado</>
+                    ) : (
+                      "Confirmar Presença"
+                    )}
+                  </Button>
+                  <Link to={`/routes/${route.id}`} className="bg-zinc-800 hover:bg-zinc-700 text-white p-4 rounded-2xl flex items-center justify-center transition-colors">
+                    <ChevronRight size={24} />
+                  </Link>
+                </div>
               </div>
             );
           })}
