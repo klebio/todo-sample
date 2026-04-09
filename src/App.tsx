@@ -4,20 +4,18 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
-import Dashboard from "./pages/Dashboard";
-import Members from "./pages/Members";
-import RoutesPage from "./pages/Routes";
-import RouteDetails from "./pages/RouteDetails";
-import Profile from "./pages/Profile";
+import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuth();
-  if (loading) return <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center text-[#4B5320] font-black animate-pulse">CARREGANDO...</div>;
+  if (loading) return (
+    <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  );
   return user ? <>{children}</> : <Navigate to="/login" />;
 };
 
@@ -28,15 +26,7 @@ const App = () => (
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          
-          <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/members" element={<PrivateRoute><Members /></PrivateRoute>} />
-          <Route path="/routes" element={<PrivateRoute><RoutesPage /></PrivateRoute>} />
-          <Route path="/routes/:id" element={<PrivateRoute><RouteDetails /></PrivateRoute>} />
-          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-          
+          <Route path="/" element={<PrivateRoute><Index /></PrivateRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
