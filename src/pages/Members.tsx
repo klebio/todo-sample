@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase } from "@/integrations/supabase/client";
 import Sidebar from '@/components/layout/Sidebar';
 import { Shield, User as UserIcon } from 'lucide-react';
 
@@ -7,7 +7,7 @@ interface Member {
   id: string;
   nome: string;
   email: string;
-  roles: { nome: string };
+  roles: { nome: string } | null;
 }
 
 const Members = () => {
@@ -20,7 +20,9 @@ const Members = () => {
         .from('profiles')
         .select('id, nome, email, roles(nome)');
       
-      if (!error && data) setMembers(data as any);
+      if (!error && data) {
+        setMembers(data as any);
+      }
       setLoading(false);
     };
     fetchMembers();

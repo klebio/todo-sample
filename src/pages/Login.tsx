@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
+import { supabase } from "@/integrations/supabase/client";
 import AuthLayout from '@/components/auth/AuthLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -56,7 +56,7 @@ const Login = () => {
         <div className="space-y-2">
           <div className="flex justify-between items-center">
             <Label className="text-zinc-400">Senha</Label>
-            <Link to="/forgot-password" id="forgot-password-link" className="text-xs text-[#4B5320] hover:underline">Esqueceu?</Link>
+            <Link to="/forgot-password" class="text-xs text-[#4B5320] hover:underline">Esqueceu?</Link>
           </div>
           <div className="relative">
             <Input 
